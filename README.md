@@ -51,10 +51,11 @@ A failed assign or sync never blocks the check-in. It is logged and raises a tra
 
 ## Tested so far
 
-- Check-in from Inventor 2027: item assigned and synced to Fusion Manage.
+- Check-in from Inventor 2027, parts and an assembly: items assigned and synced to Fusion Manage.
 - Settings dialog in the Vault client.
+- Right-click sync from a file in the Vault client, with one item and with several.
 
-Not yet tested: the right-click sync from a file, AutoCAD and SolidWorks check-ins, multi-level assemblies, and the failure paths. See [BACKLOG.md](BACKLOG.md).
+Not yet tested: AutoCAD and SolidWorks check-ins and the failure paths. See [BACKLOG.md](BACKLOG.md).
 
 ## Tests
 
