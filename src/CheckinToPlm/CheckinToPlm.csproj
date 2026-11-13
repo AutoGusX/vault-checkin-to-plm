@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>CheckinToPlm</RootNamespace>
+    <AssemblyName>CheckinToPlm</AssemblyName>
+    <Version>0.1.0</Version>
+    <!-- Vault refuses to load extensions without company, product, and description. -->
+    <Company>AutoGusX</Company>
+    <Product>Check-in to PLM</Product>
+    <Description>Assigns items and syncs them to Fusion Manage after a Vault check-in.</Description>
+    <!-- Vault's own assemblies pull in mixed framework reference versions; the host resolves them at run time. -->
+    <NoWarn>$(NoWarn);MSB3277</NoWarn>
+    <VaultBin Condition="'$(VaultBin)' == ''">C:\Program Files\Autodesk\Vault Client 2027\Explorer</VaultBin>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Autodesk.Connectivity.WebServices">
+      <HintPath>$(VaultBin)\Autodesk.Connectivity.WebServices.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Autodesk.Connectivity.Extensibility.Framework">
+      <HintPath>$(VaultBin)\Autodesk.Connectivity.Extensibility.Framework.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Autodesk.Connectivity.Explorer.Extensibility">
+      <HintPath>$(VaultBin)\Autodesk.Connectivity.Explorer.Extensibility.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="CheckinToPlm.vcet.config" CopyToOutputDirectory="PreserveNewest" />
+    <InternalsVisibleTo Include="CheckinToPlm.Tests" />
+  </ItemGroup>
+
+</Project>
