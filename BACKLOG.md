@@ -1,8 +1,20 @@
 # Backlog
 
-Spec: [specs/0001-auto-item-sync.md](specs/0001-auto-item-sync.md)
+Specs: [0001 auto item sync](specs/0001-auto-item-sync.md), [0002 sync from a file](specs/0002-sync-from-file.md)
 
-## Live checks owed
+## In progress: spec 0002, sync from a file
+
+Built and deployed 2026-11-13; not yet checked live in the Vault client.
+
+- [ ] "Sync to Fusion Manage" shows in the file right-click menu.
+- [ ] File with one item → task queued with no dialog; connector log shows Succeeded.
+- [ ] File tied to several items → picker lists them all; syncing a subset queues only those.
+- [ ] Several files selected → combined, de-duplicated list.
+- [ ] File with no item → prompt; Yes creates the item and syncs; No queues nothing.
+- [ ] Connector disabled → message box, nothing queued.
+- [ ] Confirm `GetItemsByFileId` on the latest file version finds secondary-linked items (for example a drawing tied to its model's item).
+
+## Live checks owed (spec 0001)
 
 - [ ] **Check-in from the Vault client** (only Inventor has been confirmed end to end).
 - [ ] **Assign only.** Untick sync → item but no sync task. Untick both → nothing happens.

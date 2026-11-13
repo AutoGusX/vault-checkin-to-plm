@@ -26,6 +26,10 @@
       <HintPath>$(VaultBin)\Autodesk.Connectivity.Extensibility.Framework.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="Autodesk.DataManagement.Client.Framework.Vault">
+      <HintPath>$(VaultBin)\Autodesk.DataManagement.Client.Framework.Vault.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="Autodesk.Connectivity.Explorer.Extensibility">
       <HintPath>$(VaultBin)\Autodesk.Connectivity.Explorer.Extensibility.dll</HintPath>
       <Private>false</Private>

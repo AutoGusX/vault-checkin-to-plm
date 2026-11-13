@@ -3,7 +3,7 @@ using Autodesk.Connectivity.Explorer.Extensibility;
 
 namespace CheckinToPlm;
 
-/// <summary>Adds "Check-in to PLM settings..." to the Vault client's Tools menu.</summary>
+/// <summary>Vault client commands: the settings dialog (Tools menu) and "Sync to Fusion Manage" on files.</summary>
 public class SettingsCommand : IExplorerExtension
 {
     public IEnumerable<CommandSite> CommandSites()
@@ -21,7 +21,7 @@ public class SettingsCommand : IExplorerExtension
             DeployAsPulldownMenu = false,
         };
         site.AddCommand(command);
-        return [site];
+        return [site, SyncFromFileCommand.CreateSite()];
     }
 
     private static void ShowSettings()

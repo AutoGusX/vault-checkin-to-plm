@@ -16,6 +16,14 @@ A settings dialog (**Tools > Check-in to PLM settings...** in the Vault client) 
 - Then sync the item to Fusion Manage
 - File types (default `.ipt .iam .dwg .sldprt .sldasm`)
 
+## Sync straight from a file
+
+In the Vault client, right-click one or more files and choose **Sync to Fusion Manage**. The extension finds the items tied to those files, so there is no need to open the item first.
+
+- One item: it syncs straight away.
+- Several items: a list appears with every item ticked; sync one, many, or all.
+- No up-to-date item: you are asked whether to assign/update the item first.
+
 ## Requirements
 
 - Vault Professional 2027 client (the extension targets .NET 10 and the 2027 API)
@@ -46,7 +54,7 @@ A failed assign or sync never blocks the check-in. It is logged and raises a tra
 - Check-in from Inventor 2027: item assigned and synced to Fusion Manage.
 - Settings dialog in the Vault client.
 
-Not yet tested: AutoCAD and SolidWorks check-ins, multi-level assemblies, and the failure paths. See [BACKLOG.md](BACKLOG.md).
+Not yet tested: the right-click sync from a file, AutoCAD and SolidWorks check-ins, multi-level assemblies, and the failure paths. See [BACKLOG.md](BACKLOG.md).
 
 ## Tests
 
