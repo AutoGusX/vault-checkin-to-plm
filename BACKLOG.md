@@ -17,6 +17,8 @@ Built and deployed 2026-11-13; used live in the Vault client the same day.
 
 ## Spec 0001: live checks owed
 
+- [ ] **First check-in of a new file** (add-file event, built 2026-11-13): item assigned and synced, from Inventor and from the Vault client.
+
 - [ ] **Check-in from the Vault client** (only Inventor has been confirmed end to end).
 - [ ] **Assign only.** Untick sync: item but no sync task. Untick both: nothing happens.
 - [ ] **Failure path.** Connector disabled or item outside the sync rules: check-in still succeeds, failure logged, tray notification shown.

@@ -10,7 +10,7 @@ A Vault extension that runs steps 2 and 3 automatically after every normal check
 
 ## Behavior
 
-1. **Check-in event.** An `IWebServiceExtension` subscribes to `DocumentService.CheckinFileEvents.Post`. It reads settings fresh on each event. If the feature is off, the host is the Job Processor, or the file type is out of scope, it does nothing. The handler never blocks or throws into the check-in.
+1. **Check-in event.** An `IWebServiceExtension` subscribes to `DocumentService.CheckinFileEvents.Post` and to `DocumentService.AddFileEvents.Post`. Vault treats a file's first check-in as an "add file", which raises only the second event. It reads settings fresh on each event. If the feature is off, the host is the Job Processor, or the file type is out of scope, it does nothing. The handler never blocks or throws into the check-in.
 2. **Batching.** One assembly check-in fires one event per file. File IDs are collected and processed once after about 3 seconds of quiet, on a background thread, using the session's `WebServiceManager`.
 3. **Assign items.** `AddFilesToPromote` → `GetPromoteComponentOrder` → `PromoteComponents` → `GetPromoteComponentsResults` → `UpdateAndCommitItems`; roll back with `UndoEditItems`/`DeleteUncommittedItems` on error.
 4. **Sync.** If enabled and the connector is on and configured, queue one sync task per top-level item in the batch, mirroring the native command:

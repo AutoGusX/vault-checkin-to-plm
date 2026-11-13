@@ -30,7 +30,9 @@ public class CheckinEventHandler : IWebServiceExtension
             }
 
             _batcher = new CheckinBatcher<WebServiceManager>(QuietPeriod, ProcessBatch);
-            DocumentService.CheckinFileEvents.Post += OnCheckinPost;
+            DocumentService.CheckinFileEvents.Post += (sender, e) => OnFileSaved(sender, e.ReturnValue, "Check-in");
+            // A file's first check-in is an "add file" in Vault and raises a different event.
+            DocumentService.AddFileEvents.Post += (sender, e) => OnFileSaved(sender, e.ReturnValue, "First check-in");
             Log.Info("Extension loaded; listening for check-ins.");
         }
         catch (Exception ex)
@@ -39,38 +41,37 @@ public class CheckinEventHandler : IWebServiceExtension
         }
     }
 
-    private static void OnCheckinPost(object? sender, CheckinFileCommandEventArgs e)
+    private static void OnFileSaved(object? sender, Autodesk.Connectivity.WebServices.File? file, string kind)
     {
         // Runs inside the host's check-in call: stay fast and never throw.
         try
         {
-            var file = e.ReturnValue;
             var manager = (sender as IWebService)?.WebServiceManager;
             if (file is null || manager is null)
             {
-                Log.Info($"Check-in event ignored (file present: {file is not null}, service manager present: {manager is not null}).");
+                Log.Info($"{kind} event ignored (file present: {file is not null}, service manager present: {manager is not null}).");
                 return;
             }
 
             var settings = Settings.Load();
             if (!settings.AssignItem)
             {
-                Log.Info($"Check-in: {file.Name} (file id {file.Id}); automation is switched off.");
+                Log.Info($"{kind}: {file.Name} (file id {file.Id}); automation is switched off.");
                 return;
             }
 
             if (!settings.IsInScope(file.Name))
             {
-                Log.Info($"Check-in: {file.Name} (file id {file.Id}); file type not in scope.");
+                Log.Info($"{kind}: {file.Name} (file id {file.Id}); file type not in scope.");
                 return;
             }
 
-            Log.Info($"Check-in: {file.Name} (file id {file.Id}, version {file.VerNum}); queued.");
+            Log.Info($"{kind}: {file.Name} (file id {file.Id}, version {file.VerNum}); queued.");
             _batcher?.Add(manager, file.Id);
         }
         catch (Exception ex)
         {
-            Log.Error("Check-in handler failed", ex);
+            Log.Error($"{kind} handler failed", ex);
         }
     }
 
